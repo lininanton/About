@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Мои работы | Антон Линин</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Стили для презентации больницы (пролистывание) */
+        .presentation-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .presentation-modal.active {
+            display: flex;
+        }
+
+        .presentation-container {
+            width: 80%;
+            max-width: 1000px;
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .presentation-slide {
+            display: none;
+            padding: 40px;
+            text-align: center;
+            min-height: 500px;
+        }
+
+        .presentation-slide.active-slide {
+            display: block;
+        }
+
+        .presentation-slide img {
+            max-width: 100%;
+            max-height: 350px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            cursor: pointer;
+        }
+
+        .presentation-slide h3 {
+            color: #1a4d6b;
+            font-size: 28px;
+            margin-bottom: 15px;
+        }
+
+        .presentation-slide p {
+            font-size: 18px;
+            color: #2c3e50;
+            line-height: 1.6;
+        }
+
+        .presentation-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 30px;
+            background: #f0f4f8;
+        }
+
+        .nav-btn {
+            background: #1a4d6b;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: 0.3s;
+        }
+
+        .nav-btn:hover {
+            background: #ffaa33;
+            color: #1a4d6b;
+        }
+
+        .slide-counter {
+            font-size: 16px;
+            color: #2c3e50;
+        }
+
+        .close-pres {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            font-size: 40px;
+            color: white;
+            cursor: pointer;
+            transition: 0.3s;
+            z-index: 2001;
+        }
+
+        .close-pres:hover {
+            color: #ffaa33;
+        }
+
+        /* Стили для отчёта */
+        .report-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            overflow-y: auto;
+            padding: 20px;
+        }
+
+        .report-modal.active {
+            display: flex;
+        }
+
+        .report-content {
+            background: white;
+            border-radius: 24px;
+            max-width: 900px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            animation: modalFadeIn 0.3s ease;
+        }
+
+        @keyframes modalFadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .report-header {
+            background: #1a4d6b;
+            color: white;
+            padding: 20px 25px;
+            border-radius: 24px 24px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .report-header h2 {
+            margin: 0;
+            color: white;
+            border: none;
+            padding: 0;
+        }
+
+        .report-close {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 32px;
+            cursor: pointer;
+            transition: 0.3s;
+            line-height: 1;
+        }
+
+        .report-close:hover {
+            color: #ffaa33;
+        }
+
+        .report-body {
+            padding: 25px;
+        }
+
+        .report-body h3 {
+            color: #1a4d6b;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            border-left: 4px solid #ffaa33;
+            padding-left: 12px;
+        }
+
+        .report-body h3:first-child {
+            margin-top: 0;
+        }
+
+        .tech-badge {
+            display: inline-block;
+            background: #e0e7ff;
+            color: #1a4d6b;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 14px;
+            margin: 4px;
+            font-weight: 500;
+        }
+
+        .check-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .check-list li {
+            padding: 8px 0;
+            padding-left: 28px;
+            position: relative;
+        }
+
+        .check-list li::before {
+            content: "✅";
+            position: absolute;
+            left: 0;
+        }
+
+        .result-box {
+            background: #e8f5e9;
+            border-left: 4px solid #4caf50;
+            padding: 15px;
+            border-radius: 12px;
+            margin: 15px 0;
+        }
+
+        .result-box p {
+            margin: 0;
+            font-weight: 500;
+            color: #2e7d32;
+        }
+
+        .info-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin: 15px 0;
+        }
+
+        .info-card {
+            background: #f0f4f8;
+            padding: 12px 18px;
+            border-radius: 16px;
+            flex: 1;
+            min-width: 150px;
+            text-align: center;
+        }
+
+        .info-card span {
+            font-size: 28px;
+            display: block;
+        }
+
+        .info-card p {
+            margin: 5px 0 0;
+            font-weight: 600;
+            color: #1a4d6b;
+        }
+
+        .info-card1 {
+            background: #f0f4f8;
+            padding: 12px 18px;
+            border-radius: 16px;
+            flex: 1;
+            min-width: 150px;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .info-card1:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .info-card1 span {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .info-card1 span img {
+            width: 350px;
+            height: 350px;
+            object-fit: contain;
+            border-radius: 12px;
+        }
+
+        .info-card1 p {
+            margin: 5px 0 0;
+            font-weight: 600;
+            color: #1a4d6b;
+            font-size: 13px;
+        }
+
+        .work-btns {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-block;
+            background: #1a4d6b;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 30px;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            transition: 0.3s;
+        }
+
+        .btn:hover {
+            background: #ffaa33;
+            color: #1a4d6b;
+        }
+
+        .hero-photo {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .hero-photo img {
+            max-width: 100%;
+            max-height: 300px;
+            border-radius: 15px;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .fullscreen-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 3000;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .fullscreen-modal.active {
+            display: flex;
+        }
+
+        .fullscreen-modal img {
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: 10px;
+        }
+
+        .fullscreen-modal .close-full {
+            position: absolute;
+            top: 20px;
+            right: 40px;
+            font-size: 50px;
+            color: white;
+            cursor: pointer;
+        }
+
+        .fullscreen-modal .close-full:hover {
+            color: #ffaa33;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="container navbar">
+        <div class="logo">Антон <span>Линин</span></div>
+        <ul class="nav-links">
+            <li><a href="index.html">О себе</a></li>
+            <li><a href="achievements.html">Достижения</a></li>
+            <li><a href="pets.html">Питомцы</a></li>
+            <li><a href="travels.html">Путешествия</a></li>
+            <li><a href="works.html">Работы</a></li>
+        </ul>
+    </div>
+</header>
+
+<main class="container">
+    <div class="card">
+        <h1>💻 Мои веб-проекты</h1>
+        <p>За время обучения в колледже КАИТ №20 я разработал несколько сайтов. Вот мои основные работы:</p>
+
+        <div class="works-grid">
+            <!-- ПРОЕКТ 1: БОЛЬНИЦА -->
+            <div class="work-card">
+                <img src="images/hospital.jpg" alt="Сайт больницы" onerror="this.src='https://placehold.co/600x400/1a4d6b/white?text=Больница'">
+                <div class="work-info">
+                    <h3>🏥 Сайт Больницы</h3>
+                    <p>Сайт больницы с информацией об отделениях, врачах и услугах. Адаптивный дизайн, запись к врачу.</p>
+                    <p><strong>Технологии:</strong> HTML5, CSS3, JavaScript, Flexbox</p>
+                    <div class="work-btns">
+                        <button class="btn" onclick="openPresentation()">📖 Смотреть презентацию</button>
+                        <button class="btn" onclick="openHospitalReport()">📊 Отчёт для работодателя</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ПРОЕКТ 2: ГЕРОИ СОВЕТСКОГО СОЮЗА -->
+            <div class="work-card">
+                <img src="images/ВОВ.jpg" alt="Сайт Герои СССР" onerror="this.src='https://placehold.co/600x400/1a4d6b/white?text=Герои+СССР'">
+                <div class="work-info">
+                    <h3>⭐ Герои Советского Союза</h3>
+                    <p>Информационный сайт о первых героях Великой Отечественной войны 1941 года.</p>
+                    <p><strong>Технологии:</strong> HTML5, CSS3, JavaScript</p>
+                    <div class="work-btns">
+                        <button class="btn" onclick="openHeroModal()">🖼️ Посмотреть скриншот</button>
+                        <button class="btn" onclick="openHeroReport()">📊 Отчёт для работодателя</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer>
+    <p>© 2026 Антон Линин | Портфолио</p>
+</footer>
+
+<!-- ========== ПРЕЗЕНТАЦИЯ БОЛЬНИЦЫ (пролистывание) ========== -->
+<div id="presentationModal" class="presentation-modal">
+    <span class="close-pres" onclick="closePresentation()">&times;</span>
+    <div class="presentation-container">
+        <div class="presentation-slide" id="slide1">
+            <h3>🏥 Главная страница</h3>
+            <img src="images/hospital.jpg" alt="Главная страница" onclick="openFullscreen(this.src)" onerror="this.src='https://placehold.co/800x400/1a4d6b/white?text=Главная+страница'">
+            <p>Главная страница сайта больницы с приветствием, преимуществами и быстрой навигацией.</p>
+        </div>
+        <div class="presentation-slide" id="slide2">
+            <h3>📋 Услуги и отделения</h3>
+            <img src="images/hospital1.jpg" alt="Услуги" onclick="openFullscreen(this.src)" onerror="this.src='https://placehold.co/800x400/1a4d6b/white?text=Услуги+и+отделения'">
+            <p>Страница со списком медицинских услуг, отделений и специализацией врачей.</p>
+        </div>
+        <div class="presentation-slide" id="slide3">
+            <h3>📝 Запись к врачу</h3>
+            <img src="images/hospital2.jpg" alt="Запись к врачу" onclick="openFullscreen(this.src)" onerror="this.src='https://placehold.co/800x400/1a4d6b/white?text=Запись+к+врачу'">
+            <p>Форма записи к врачу с валидацией данных и сохранением в LocalStorage.</p>
+        </div>
+        <div class="presentation-slide" id="slide4">
+            <h3>📱 Адаптивный дизайн</h3>
+            <img src="images/hospital3.jpg" alt="Адаптив" onclick="openFullscreen(this.src)" onerror="this.src='https://placehold.co/800x400/1a4d6b/white?text=Адаптивный+дизайн'">
+            <p>Сайт корректно отображается на всех устройствах: ПК, планшетах и телефонах.</p>
+        </div>
+        <div class="presentation-nav">
+            <button class="nav-btn" onclick="prevSlide()">◀ Назад</button>
+            <span class="slide-counter" id="slideCounter">1 / 4</span>
+            <button class="nav-btn" onclick="nextSlide()">Вперёд ▶</button>
+        </div>
+    </div>
+</div>
+
+<!-- ========== ОТЧЁТ ДЛЯ БОЛЬНИЦЫ ========== -->
+<div id="hospitalReportModal" class="report-modal">
+    <div class="report-content">
+        <div class="report-header">
+            <h2>🏥 Медицинский портал "Здоровье+"</h2>
+            <button class="report-close" onclick="closeHospitalReport()">&times;</button>
+        </div>
+        <div class="report-body">
+
+            <h3>🛠️ Используемые технологии</h3>
+            <div>
+                <span class="tech-badge">HTML5</span>
+                <span class="tech-badge">CSS3</span>
+                <span class="tech-badge">JavaScript</span>
+                <span class="tech-badge">localStorage</span>
+                <span class="tech-badge">GitHub</span>
+                <span class="tech-badge">Figma</span>
+                <span class="tech-badge">PyCharm / VS Code</span>
+            </div>
+
+            <h3>✅ Проверено</h3>
+            <ul class="check-list">
+                <li>создание записей</li>
+                <li>редактирование записей</li>
+                <li>удаление записей</li>
+                <li>поиск и фильтрация</li>
+                <li>работа модального окна</li>
+                <li>валидация данных</li>
+                <li>сохранение в localStorage</li>
+                <li>корректность интерфейса</li>
+            </ul>
+
+            <div class="result-box">
+                <p>📌 Результат: ошибок не обнаружено.</p>
+            </div>
+
+<h3>📁 Итоги выполненной работы</h3>
+            <div class="info-grid">
+                <div class="info-card"><span>🛠</span><p>Разработано веб-приложение «Больница»</p></div>
+                <div class="info-card"><span>🛜</span><p>Созданы страницы: главная, врачи, услуги, контакты</p></div>
+                <div class="info-card"><span>✅</span><p>Реализована форма записи (модальное окно)</p></div>
+                <div class="info-card"><span>🌐</span><p>Настроено хранение данных в localStorage</p></div>
+                <div class="info-card"><span>📄</span><p>Подготовлена документация и презентация</p></div>
+                <div class="info-card1"><span><img src="images/github.png" alt="Роли"></span><p>Создан и оформлен репозиторий на GitHub</p></div>
+                <div class="info-card1"><span><img src="images/Роли.png" alt="Роли"> </span><p>Разработка пользовательских ролей </p></div>
+            </div>
+
+            <h3>📖 Что было изучено и освоено</h3>
+            <div class="info-grid">
+                <div class="info-card"><span>🌐</span><p>HTML, CSS, JavaScript</p></div>
+                <div class="info-card"><span>🔧</span><p>Работа с DOM, JSON и localStorage</p></div>
+                <div class="info-card"><span>🐙</span><p>Git и GitHub</p></div>
+                <div class="info-card"><span>📁</span><p>Структурирование проекта</p></div>
+                <div class="info-card"><span>🎨</span><p>Создание UI-интерфейсов</p></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ========== ОТЧЁТ ДЛЯ ГЕРОЕВ ========== -->
+<div id="heroReportModal" class="report-modal">
+    <div class="report-content">
+        <div class="report-header">
+            <h2>⭐ Герои Советского Союза</h2>
+            <button class="report-close" onclick="closeHeroReport()">&times;</button>
+        </div>
+        <div class="report-body">
+
+            <h3>🛠️ Используемые технологии</h3>
+            <div>
+                <span class="tech-badge">HTML5</span>
+                <span class="tech-badge">CSS3</span>
+                <span class="tech-badge">JavaScript</span>
+                <span class="tech-badge">GitHub</span>
+                <span class="tech-badge">VS Code</span>
+            </div>
+
+            <h3>✅ Проверено</h3>
+            <ul class="check-list">
+                <li>адаптивная вёрстка</li>
+                <li>работа с DOM</li>
+                <li>интерактивные элементы (карточки героев)</li>
+                <li>корректность интерфейса</li>
+            </ul>
+
+            <div class="result-box">
+                <p>📌 Результат: ошибок не обнаружено.</p>
+            </div>
+
+            <h3>📁 Итоги выполненной работы</h3>
+            <div class="info-grid">
+                <div class="info-card"><span>✅</span><p>Разработан сайт «Герои СССР»</p></div>
+                <div class="info-card"><span>📄</span><p>Созданы страницы: главная, галерея героев</p></div>
+                <div class="info-card"><span>🎖️</span><p>Собрана информация о подвигах героев 1941 года</p></div>
+                 <div class="info-card"><span>📚</span><p>Подготовлена документация</p></div>
+            </div>
+
+            <h3>📖 Что было изучено и освоено</h3>
+            <div class="info-grid">
+                <div class="info-card"><span>🌐</span><p>HTML, CSS, JavaScript</p></div>
+                <div class="info-card"><span>🔧</span><p>Работа с DOM и событиями</p></div>
+                <div class="info-card"><span>🐙</span><p>Git и GitHub</p></div>
+                <div class="info-card"><span>📁</span><p>Структурирование проекта</p></div>
+                <div class="info-card"><span>🎨</span><p>Создание UI-интерфейсов</p></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ========== МОДАЛЬНОЕ ОКНО ДЛЯ СКРИНШОТА ГЕРОЕВ ========== -->
+<div id="heroModal" class="report-modal">
+    <div class="report-content" style="max-width: 700px;">
+        <div class="report-header">
+            <h2>⭐ Герои Советского Союза</h2>
+            <button class="report-close" onclick="closeHeroModal()">&times;</button>
+        </div>
+        <div class="report-body">
+            <div class="hero-photo">
+                <img src="images/ВОВ.jpg" alt="Сайт Герои СССР" onclick="openFullscreen(this.src)" onerror="this.src='https://placehold.co/800x500/1a4d6b/white?text=Герои+СССР'">
+            </div>
+            <h3>📖 О проекте</h3>
+            <p>Сайт посвящён первым героям Великой Отечественной войны 1941 года. Содержит информацию о подвигах.</p>
+            <h3>🛠️ Технологии</h3>
+            <div>
+                <span class="tech-badge">HTML5</span>
+                <span class="tech-badge">CSS3</span>
+                <span class="tech-badge">JavaScript</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ========== ПОЛНОЭКРАННОЕ ОКНО ДЛЯ ФОТО ========== -->
+<div id="fullscreenModal" class="fullscreen-modal" onclick="closeFullscreen()">
+    <span class="close-full" onclick="closeFullscreen()">&times;</span>
+    <img id="fullscreenImg" src="" alt="Увеличенное фото">
+</div>
+
+<script>
+    // ========== ПРЕЗЕНТАЦИЯ (пролистывание) ==========
+    let currentSlide = 1;
+    const totalSlides = 4;
+
+    function openPresentation() {
+        document.getElementById('presentationModal').classList.add('active');
+        currentSlide = 1;
+        showSlide(currentSlide);
+    }
+
+    function closePresentation() {
+        document.getElementById('presentationModal').classList.remove('active');
+    }
+
+    function showSlide(n) {
+        for (let i = 1; i <= totalSlides; i++) {
+            const slide = document.getElementById('slide' + i);
+            if (slide) slide.classList.remove('active-slide');
+        }
+        const activeSlide = document.getElementById('slide' + currentSlide);
+        if (activeSlide) activeSlide.classList.add('active-slide');
+        document.getElementById('slideCounter').innerText = currentSlide + ' / ' + totalSlides;
+    }
+
+    function nextSlide() {
+        if (currentSlide < totalSlides) {
+            currentSlide++;
+            showSlide(currentSlide);
+        }
+    }
+
+    function prevSlide() {
+        if (currentSlide > 1) {
+            currentSlide--;
+            showSlide(currentSlide);
+        }
+    }
+
+    // ========== ОТЧЁТ ДЛЯ БОЛЬНИЦЫ ==========
+    function openHospitalReport() {
+        document.getElementById('hospitalReportModal').classList.add('active');
+    }
+
+    function closeHospitalReport() {
+        document.getElementById('hospitalReportModal').classList.remove('active');
+    }
+
+    // ========== ОТЧЁТ ДЛЯ ГЕРОЕВ ==========
+    function openHeroReport() {
+        document.getElementById('heroReportModal').classList.add('active');
+    }
+
+    function closeHeroReport() {
+        document.getElementById('heroReportModal').classList.remove('active');
+    }
+
+    // ========== ДЛЯ ГЕРОЕВ (скриншот) ==========
+    function openHeroModal() {
+        document.getElementById('heroModal').classList.add('active');
+    }
+
+    function closeHeroModal() {
+        document.getElementById('heroModal').classList.remove('active');
+    }
+
+    // ========== ПОЛНОЭКРАННЫЙ ПРОСМОТР ФОТО ==========
+    function openFullscreen(src) {
+        const modal = document.getElementById('fullscreenModal');
+        const img = document.getElementById('fullscreenImg');
+        modal.classList.add('active');
+        img.src = src;
+    }
+
+    function closeFullscreen() {
+        document.getElementById('fullscreenModal').classList.remove('active');
+    }
+
+    // ========== ЗАКРЫТИЕ ПО ESC ==========
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            closePresentation();
+            closeHospitalReport();
+            closeHeroReport();
+            closeHeroModal();
+            closeFullscreen();
+        }
+        const presActive = document.getElementById('presentationModal').classList.contains('active');
+        if (presActive) {
+            if (e.key === 'ArrowRight') nextSlide();
+            if (e.key === 'ArrowLeft') prevSlide();
+        }
+    });
+
+    // ========== ЗАКРЫТИЕ ПО КЛИКУ НА ФОН ==========
+    document.getElementById('presentationModal')?.addEventListener('click', function(e) {
+        if (e.target === this) closePresentation();
+    });
+    document.getElementById('hospitalReportModal')?.addEventListener('click', function(e) {
+        if (e.target === this) closeHospitalReport();
+    });
+    document.getElementById('heroReportModal')?.addEventListener('click', function(e) {
+        if (e.target === this) closeHeroReport();
+    });
+    document.getElementById('heroModal')?.addEventListener('click', function(e) {
+        if (e.target === this) closeHeroModal();
+    });
+</script>
+
+</body>
+</html>

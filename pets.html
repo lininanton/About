@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Питомцы | Антон Линин</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+    <div class="container navbar">
+        <div class="logo">Антон <span>Линин</span></div>
+        <ul class="nav-links">
+            <li><a href="index.html">О себе</a></li>
+            <li><a href="achievements.html">Достижения</a></li>
+            <li><a href="pets.html">Питомцы</a></li>
+            <li><a href="travels.html">Путешествия</a></li>
+            <li><a href="works.html">Работы</a></li>
+        </ul>
+    </div>
+</header>
+
+<main class="container">
+    <div class="card">
+        <h1>🐾 Мои домашние животные</h1>
+        <div class="pets-grid">
+            <div class="pet-card">
+                <i>🐕</i>
+                <h3>Герда</h3>
+                <p>Собака</p>
+                <p>Верный друг и защитник ❤️</p>
+            </div>
+            <div class="pet-card">
+                <i>🐱</i>
+                <h3>Ксюша</h3>
+                <p>Кошка</p>
+                <p>Ласковая и пушистая 🐾</p>
+            </div>
+        </div>
+
+        <div class="photo-grid">
+            <div class="photo-item">
+                <img src="images/dog1.webp" alt="Герда">
+                <p>🐕 Герда</p>
+            </div>
+            <div class="photo-item">
+                <img src="images/dog2.webp" alt="Герда">
+                <p>🐕 На прогулке</p>
+            </div>
+            <div class="photo-item">
+                <img src="images/cat.png" alt="Ксюша">
+                <p>🐱 Кошка Ксюша</p>
+            </div>
+        </div>
+
+        <div class="video-box">
+            <video controls>
+                <source src="images/dog-sea.mp4" type="video/mp4">
+                Ваш браузер не поддерживает видео.
+            </video>
+            <p>🐕 На море с Гердой</p>
+        </div>
+
+        <div class="video-box">
+            <video controls>
+                <source src="images/pets-eat.mp4" type="video/mp4">
+                Ваш браузер не поддерживает видео.
+            </video>
+            <p>🐕🐱 Мои Герда и Ксюша кушают вместе</p>
+        </div>
+    </div>
+</main>
+
+<footer>
+    <p>© 2026 Антон Линин | Портфолио</p>
+</footer>
+<!-- Модальное окно для просмотра фото -->
+<div id="imageModal" class="modal">
+    <span class="modal-close">&times;</span>
+    <img id="modalImage" src="" alt="Увеличенное фото">
+</div>
+
+<script>
+    // Открытие фото в полный размер
+    const modal = document.getElementById('imageModal');
+    const modalImg = document.getElementById('modalImage');
+    const closeBtn = document.querySelector('.modal-close');
+
+    // Находим все картинки с классом photo-item img и добавляем обработчик
+    document.querySelectorAll('.photo-item img').forEach(img => {
+        img.addEventListener('click', function(e) {
+            e.stopPropagation();
+            modal.classList.add('active');
+            modalImg.src = this.src;
+        });
+    });
+
+    // Закрытие по крестику
+    closeBtn.addEventListener('click', function() {
+        modal.classList.remove('active');
+    });
+
+    // Закрытие по клику на фон
+    modal.addEventListener('click', function(e) {
+        if (e.target === modal) {
+            modal.classList.remove('active');
+        }
+    });
+
+    // Закрытие по клавише ESC
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && modal.classList.contains('active')) {
+            modal.classList.remove('active');
+        }
+    });
+</script>
+</body>
+</html>

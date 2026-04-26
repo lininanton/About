@@ -1,0 +1,405 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f0f4f8;
+    color: #2c3e50;
+    line-height: 1.6;
+}
+
+header {
+    background: #1a4d6b;
+    color: white;
+    padding: 20px 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.logo span {
+    color: #ffaa33;
+}
+
+.nav-links {
+    display: flex;
+    gap: 20px;
+    list-style: none;
+    flex-wrap: wrap;
+}
+
+.nav-links a {
+    color: white;
+    text-decoration: none;
+    padding: 8px 0;
+    transition: 0.3s;
+}
+
+.nav-links a:hover {
+    color: #ffaa33;
+}
+
+main {
+    padding: 40px 0;
+}
+
+.card {
+    background: white;
+    border-radius: 24px;
+    padding: 35px;
+    margin-bottom: 30px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+    transition: transform 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+h1 {
+    font-size: 32px;
+    color: #1a4d6b;
+    margin-bottom: 20px;
+    border-left: 4px solid #ffaa33;
+    padding-left: 15px;
+}
+
+h2 {
+    font-size: 24px;
+    color: #1a4d6b;
+    margin: 25px 0 15px;
+    border-left: 4px solid #ffaa33;
+    padding-left: 15px;
+}
+
+.profile {
+    display: flex;
+    gap: 40px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.profile-text {
+    flex: 2;
+}
+
+.profile-photo {
+    flex: 1;
+    text-align: center;
+}
+
+.profile-photo img {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid #ffaa33;
+    background: #eee;
+}
+
+.hobby-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin: 20px 0;
+}
+
+.hobby-item {
+    background: #f0f4f8;
+    padding: 10px 20px;
+    border-radius: 30px;
+    font-size: 15px;
+    transition: 0.3s;
+}
+
+.hobby-item:hover {
+    background: #ffaa33;
+    color: white;
+}
+
+.pets-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    margin: 20px 0;
+}
+
+.pet-card {
+    flex: 1;
+    min-width: 180px;
+    background: #f0f4f8;
+    padding: 25px;
+    border-radius: 20px;
+    text-align: center;
+    transition: 0.3s;
+}
+
+.pet-card:hover {
+    transform: translateY(-5px);
+    background: #ffaa33;
+    color: white;
+}
+
+.pet-card i {
+    font-size: 50px;
+    margin-bottom: 15px;
+}
+
+.qualities {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.qualities-good,
+.qualities-bad {
+    flex: 1;
+    background: #f0f4f8;
+    padding: 20px;
+    border-radius: 16px;
+}
+
+.qualities-good h3 {
+    color: #2c7da0;
+}
+
+.qualities-bad h3 {
+    color: #e67e22;
+}
+
+.qualities ul {
+    margin-left: 20px;
+    margin-top: 10px;
+}
+
+.qualities li {
+    margin: 8px 0;
+}
+
+.photo-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin: 20px 0;
+}
+
+.photo-item {
+    flex: 1 1 calc(33.333% - 20px);
+    min-width: 180px;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    transition: 0.3s;
+    background: white;
+}
+
+.photo-item:hover {
+    transform: scale(1.02);
+}
+
+.photo-item img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    display: block;
+}
+
+.photo-item p {
+    padding: 12px;
+    text-align: center;
+    font-weight: 500;
+}
+
+.video-box {
+    background: #1a4d6b;
+    border-radius: 20px;
+    padding: 20px;
+    margin: 20px 0;
+    text-align: center;
+}
+
+.video-box video {
+    width: 100%;
+    max-width: 500px;
+    border-radius: 16px;
+}
+
+.video-box p {
+    color: white;
+    margin-top: 12px;
+}
+
+.achievement-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 25px;
+    margin: 25px 0;
+}
+
+.achievement-item {
+    flex: 1 1 calc(50% - 25px);
+    background: #f0f4f8;
+    padding: 25px;
+    border-radius: 20px;
+    text-align: center;
+    transition: 0.3s;
+}
+
+.achievement-item:hover {
+    transform: translateY(-5px);
+    background: #ffaa33;
+    color: white;
+}
+
+.achievement-item i {
+    font-size: 48px;
+    margin-bottom: 15px;
+    display: block;
+}
+
+.works-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    margin: 20px 0;
+}
+
+.work-card {
+    flex: 1 1 calc(50% - 30px);
+    background: #f0f4f8;
+    border-radius: 20px;
+    overflow: hidden;
+    transition: 0.3s;
+}
+
+.work-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+.work-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.work-info {
+    padding: 20px;
+}
+
+.work-info h3 {
+    color: #1a4d6b;
+    margin-bottom: 10px;
+}
+
+.btn {
+    display: inline-block;
+    background: #1a4d6b;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 30px;
+    text-decoration: none;
+    margin-top: 15px;
+    transition: 0.3s;
+}
+
+.btn:hover {
+    background: #ffaa33;
+    color: #1a4d6b;
+}
+
+footer {
+    background: #1a4d6b;
+    color: white;
+    text-align: center;
+    padding: 25px;
+    margin-top: 30px;
+}
+
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        text-align: center;
+    }
+    .profile {
+        flex-direction: column;
+        text-align: center;
+    }
+    .photo-item {
+        flex: 1 1 100%;
+    }
+    .qualities {
+        flex-direction: column;
+    }
+    .pets-grid {
+        flex-direction: column;
+    }
+    .achievement-item {
+        flex: 1 1 100%;
+    }
+    .work-card {
+        flex: 1 1 100%;
+    }
+}
+/* Модальное окно для просмотра фото */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.modal.active {
+    display: flex;
+}
+
+.modal img {
+    max-width: 90%;
+    max-height: 90%;
+    object-fit: contain;
+    border-radius: 10px;
+    box-shadow: 0 0 30px rgba(0,0,0,0.5);
+}
+
+.modal-close {
+    position: absolute;
+    top: 20px;
+    right: 40px;
+    font-size: 50px;
+    color: white;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.modal-close:hover {
+    color: #ffaa33;
+}

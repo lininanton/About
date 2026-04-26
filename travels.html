@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Путешествия | Антон Линин</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+    <div class="container navbar">
+        <div class="logo">Антон <span>Линин</span></div>
+        <ul class="nav-links">
+            <li><a href="index.html">О себе</a></li>
+            <li><a href="achievements.html">Достижения</a></li>
+            <li><a href="pets.html">Питомцы</a></li>
+            <li><a href="travels.html">Путешествия</a></li>
+            <li><a href="works.html">Работы</a></li>
+        </ul>
+    </div>
+</header>
+
+<main class="container">
+    <div class="card">
+        <h1>🌍 Мои путешествия</h1>
+        <p>Я люблю путешествовать, изучать новые места и наслаждаться природой.</p>
+
+        <div class="photo-grid">
+            <div class="photo-item">
+                <img src="images/sea1.jpg" alt="Море">
+                <p>🌊 Соленое озеро</p>
+            </div>
+            <div class="photo-item">
+                <img src="images/Подводный мир.png" alt="Море">
+                <p>🐠 Подводный мир Египта</p>
+            </div>
+            <div class="photo-item">
+                <img src="images/Харбин, ботанический сад.png" alt="Море">
+                <p>🌿 Ботанический сад в Харбине</p>
+            </div>
+        </div>
+
+                <div class="photo-grid">
+            <div class="photo-item">
+                <img src="images/Парк скульптур.png" alt="Море">
+                <p>🌊 Парк скульптур</p>
+            </div>
+            <div class="photo-item">
+                <img src="images/Набережная.png" alt="Море">
+                <p>🐠 Прогулка по Набережной</p>
+            </div>
+            <div class="photo-item">
+                <img src="images/Харбин.png" alt="Море">
+                <p>🌿 Путишествие по Харбину</p>
+            </div>
+        </div>
+
+        <div class="photo-grid">
+            <div class="photo-item">
+                <img src="images/park1.jpg" alt="Парк">
+                <p>🌲Растительность</p>
+            </div>
+            <div class="photo-item">
+                <img src="images/park2.jpg" alt="Природа">
+                <p>🍂 Гранаты</p>
+            </div>
+            <div class="photo-item">
+                <img src="images/park3.jpg" alt="Лес">
+                <p>🌳 Прогулка в парке</p>
+            </div>
+        </div>
+
+        <div class="photo-grid">
+            <div class="photo-item">
+                <img src="images/mall.png" alt="ТЦ">
+                <p>🛍️ Торговый центр</p>
+            </div>
+            <div class="photo-item">
+                <img src="images/mall1.png" alt="ТЦ">
+                <p>🛍️ Молл</p>
+            </div>
+            <div class="photo-item">
+                <img src="images/kafe.webp" alt="Кафе">
+                <p>☕ Отдых на свежем воздухе</p>
+            </div>
+        </div>
+
+        <div class="video-box">
+            <video controls>
+                <source src="images/sea2.mp4" type="video/mp4">
+                Ваш браузер не поддерживает видео.
+            </video>
+            <p>🎥 Море, волны</p>
+        </div>
+        <div class="video-box">
+            <video controls>
+                <source src="images/dog-sea.mp4" type="video/mp4">
+                Ваш браузер не поддерживает видео.
+            </video>
+            <p>🎥 Морской пейзаж</p>
+        </div>
+    </div>
+</main>
+
+<footer>
+    <p>© 2026 Антон Линин | Портфолио</p>
+</footer>
+<!-- Модальное окно для просмотра фото -->
+<div id="imageModal" class="modal">
+    <span class="modal-close">&times;</span>
+    <img id="modalImage" src="" alt="Увеличенное фото">
+</div>
+
+<script>
+    // Открытие фото в полный размер
+    const modal = document.getElementById('imageModal');
+    const modalImg = document.getElementById('modalImage');
+    const closeBtn = document.querySelector('.modal-close');
+
+    // Находим все картинки с классом photo-item img и добавляем обработчик
+    document.querySelectorAll('.photo-item img').forEach(img => {
+        img.addEventListener('click', function(e) {
+            e.stopPropagation();
+            modal.classList.add('active');
+            modalImg.src = this.src;
+        });
+    });
+
+    // Закрытие по крестику
+    closeBtn.addEventListener('click', function() {
+        modal.classList.remove('active');
+    });
+
+    // Закрытие по клику на фон
+    modal.addEventListener('click', function(e) {
+        if (e.target === modal) {
+            modal.classList.remove('active');
+        }
+    });
+
+    // Закрытие по клавише ESC
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && modal.classList.contains('active')) {
+            modal.classList.remove('active');
+        }
+    });
+</script>
+</body>
+</html>

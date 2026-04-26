@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Портфолио | Антон Линин</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+    <div class="container navbar">
+        <div class="logo">Антон <span>Линин</span></div>
+        <ul class="nav-links">
+            <li><a href="index.html">О себе</a></li>
+            <li><a href="achievements.html">Достижения</a></li>
+            <li><a href="pets.html">Питомцы</a></li>
+            <li><a href="travels.html">Путешествия</a></li>
+            <li><a href="works.html">Работы</a></li>
+        </ul>
+    </div>
+</header>
+
+<main class="container">
+    <div class="card">
+        <div class="profile">
+            <div class="profile-text">
+                <h1>Кто я такой?</h1>
+                <p><strong>Линин Антон</strong></p>
+                <p>📅 Дата рождения: <strong>30 января 2006 года</strong></p>
+                <p>📍 Место рождения: <strong>г. Малоярославец</strong></p>
+                <p>👨‍👩‍👧‍👦 Я вырос в полной семье, где ценились знания и творчество. Моя мама — врач. У меня есть старший брат, который закончил МАДИ, а сейчас работает начальником участка в «Криофрост инженеринг».</p>
+                <p>💻 Вместе с братом мы играли в компьютерные игры, он меня много чему научил. Именно благодаря общению с братом, я понял насколько интересным может быть удивительный мир информационных технологий.</p>
+                <p>🎓 Обучаюсь в <strong>КАИТ №20</strong> по специальности "Информационные системы и программирование".</p>
+            </div>
+            <div class="profile-photo">
+                <img src="images/photo.webp" alt="Моё фото">
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <h1>Мои увлечения</h1>
+        <div class="hobby-grid">
+            <span class="hobby-item">🏊 Плавание</span>
+            <span class="hobby-item">🐴 Верховая езда</span>
+            <span class="hobby-item">🍄 Грибы и ягоды</span>
+            <span class="hobby-item">🎨 Рисование</span>
+            <span class="hobby-item">🎬 Кино и театры</span>
+            <span class="hobby-item">🌊 Путешествия</span>
+        </div>
+    </div>
+
+    <div class="card">
+        <h1>Личные качества</h1>
+        <div class="qualities">
+            <div class="qualities-good">
+                <h3>✅ Положительные</h3>
+                <ul>
+                    <li>Добрый</li>
+                    <li>Готов прийти на помощь</li>
+                    <li>Аккуратный</li>
+                    <li>Не поддаюсь чужому влиянию</li>
+                    <li>Жертвенный</li>
+                </ul>
+            </div>
+            <div class="qualities-bad">
+                <h3>⚠️ Отрицательные</h3>
+                <ul>
+                    <li>Властный</li>
+                    <li>Слишком серьёзный</li>
+                    <li>Слишком люблю анализировать</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer>
+    <p>© 2026 Антон Линин | Портфолио</p>
+    <p>📍 Москва | КАИТ №20 | Информационные системы и программирование</p>
+</footer>
+<!-- Модальное окно для просмотра фото -->
+<div id="imageModal" class="modal">
+    <span class="modal-close">&times;</span>
+    <img id="modalImage" src="" alt="Увеличенное фото">
+</div>
+
+<script>
+    // Открытие фото в полный размер
+    const modal = document.getElementById('imageModal');
+    const modalImg = document.getElementById('modalImage');
+    const closeBtn = document.querySelector('.modal-close');
+
+    // Находим все картинки с классом photo-item img и добавляем обработчик
+    document.querySelectorAll('.photo-item img').forEach(img => {
+        img.addEventListener('click', function(e) {
+            e.stopPropagation();
+            modal.classList.add('active');
+            modalImg.src = this.src;
+        });
+    });
+
+    // Закрытие по крестику
+    closeBtn.addEventListener('click', function() {
+        modal.classList.remove('active');
+    });
+
+    // Закрытие по клику на фон
+    modal.addEventListener('click', function(e) {
+        if (e.target === modal) {
+            modal.classList.remove('active');
+        }
+    });
+
+    // Закрытие по клавише ESC
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && modal.classList.contains('active')) {
+            modal.classList.remove('active');
+        }
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Достижения | Антон Линин</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+    <div class="container navbar">
+        <div class="logo">Антон <span>Линин</span></div>
+        <ul class="nav-links">
+            <li><a href="index.html">О себе</a></li>
+            <li><a href="achievements.html">Достижения</a></li>
+            <li><a href="pets.html">Питомцы</a></li>
+            <li><a href="travels.html">Путешествия</a></li>
+            <li><a href="works.html">Работы</a></li>
+        </ul>
+    </div>
+</header>
+
+<main class="container">
+    <div class="card">
+        <h1>🏆 Мои достижения</h1>
+        <div class="achievement-grid">
+            <div class="achievement-item">
+                <i>🎓</i>
+                <h3>Поступление в КАИТ №20</h3>
+                <p>2024 год — успешно поступил на специальность "Информационные системы и программирование"</p>
+            </div>
+            <div class="achievement-item">
+                <i>🏊</i>
+                <h3>Плаванье с 1 класса</h3>
+                <p>Занимаюсь профессионально, участвую в соревнованиях</p>
+            </div>
+            <div class="achievement-item">
+                <i>💻</i>
+                <h3>Создание сайтов</h3>
+                <p>Разработал несколько полноценных веб-приложений</p>
+            </div>
+            <div class="achievement-item">
+                <i>🎭</i>
+                <h3>Посещение мюзиклов</h3>
+                <p>Был на мюзикле "Качели" Дианы Гурцкой</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <h1>📸 Мои занятия в бассейне</h1>
+        <div class="photo-grid">
+            <div class="photo-item">
+                <img src="images/Screenshot_2.png" alt="Мюзикл">
+                <p>Плаваю в бассейне</p>
+            </div>
+            <div class="photo-item">
+                <img src="images/Screenshot_1.png" alt="Семья">
+                <p>Заплыв в Евпатории</p>
+            </div>
+        </div>
+        <div class="video-box">
+            <video controls>
+                <source src="images/VID_20260423_202538 (1).mp4" type="video/mp4">
+                Ваш браузер не поддерживает видео.
+            </video>
+            <p>🎬 Мои уроки по плаванью</p>
+        </div>
+    </div>
+</main>
+
+<footer>
+    <p>© 2026 Антон Линин | Портфолио</p>
+</footer>
+<!-- Модальное окно для просмотра фото -->
+<div id="imageModal" class="modal">
+    <span class="modal-close">&times;</span>
+    <img id="modalImage" src="" alt="Увеличенное фото">
+</div>
+
+<script>
+    // Открытие фото в полный размер
+    const modal = document.getElementById('imageModal');
+    const modalImg = document.getElementById('modalImage');
+    const closeBtn = document.querySelector('.modal-close');
+
+    // Находим все картинки с классом photo-item img и добавляем обработчик
+    document.querySelectorAll('.photo-item img').forEach(img => {
+        img.addEventListener('click', function(e) {
+            e.stopPropagation();
+            modal.classList.add('active');
+            modalImg.src = this.src;
+        });
+    });
+
+    // Закрытие по крестику
+    closeBtn.addEventListener('click', function() {
+        modal.classList.remove('active');
+    });
+
+    // Закрытие по клику на фон
+    modal.addEventListener('click', function(e) {
+        if (e.target === modal) {
+            modal.classList.remove('active');
+        }
+    });
+
+    // Закрытие по клавише ESC
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && modal.classList.contains('active')) {
+            modal.classList.remove('active');
+        }
+    });
+</script>
+
+</body>
+</html>
