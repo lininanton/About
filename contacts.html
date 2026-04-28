@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Контакты | Антон Линин</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Дополнительные стили для страницы контактов */
+        .contacts-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin: 30px 0;
+        }
+
+        .contact-card {
+            flex: 1;
+            min-width: 250px;
+            background: #f0f4f8;
+            border-radius: 20px;
+            padding: 25px;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .contact-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        .contact-card span {
+            font-size: 48px;
+            display: block;
+            margin-bottom: 15px;
+        }
+
+        .contact-card h3 {
+            color: #1a4d6b;
+            margin-bottom: 15px;
+        }
+
+        .contact-card p {
+            margin: 8px 0;
+            font-size: 16px;
+            background: none;
+            padding: 0;
+        }
+
+        .contact-card a {
+            color: #1a4d6b;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .contact-card a:hover {
+            color: #ffaa33;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+
+        .social-links a {
+            display: inline-block;
+            background: #1a4d6b;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-size: 14px;
+            transition: 0.3s;
+        }
+
+        .social-links a:hover {
+            background: #ffaa33;
+            color: #1a4d6b;
+            transform: translateY(-3px);
+        }
+
+        .contact-form {
+            background: #f0f4f8;
+            border-radius: 20px;
+            padding: 25px;
+            margin-top: 20px;
+        }
+
+        .contact-form h3 {
+            color: #1a4d6b;
+            margin-bottom: 20px;
+            border-left: 4px solid #ffaa33;
+            padding-left: 15px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: #1a4d6b;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            font-family: inherit;
+            font-size: 14px;
+            transition: 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #ffaa33;
+            box-shadow: 0 0 5px rgba(255,170,51,0.3);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .submit-btn {
+            background: #1a4d6b;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .submit-btn:hover {
+            background: #ffaa33;
+            color: #1a4d6b;
+        }
+
+        .map-container {
+            margin-top: 20px;
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        .map-container iframe {
+            width: 100%;
+            height: 300px;
+            border: 0;
+        }
+
+        .working-hours {
+            background: #f0f4f8;
+            border-radius: 20px;
+            padding: 20px;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .working-hours h3 {
+            color: #1a4d6b;
+            margin-bottom: 15px;
+        }
+
+        .working-hours p {
+            margin: 5px 0;
+        }
+
+        .divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #1a4d6b, transparent);
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="container navbar">
+        <div class="logo">Антон <span>Линин</span></div>
+        <ul class="nav-links">
+            <li><a href="index.html">О себе</a></li>
+            <li><a href="achievements.html">Достижения</a></li>
+            <li><a href="pets.html">Питомцы</a></li>
+            <li><a href="travels.html">Путешествия</a></li>
+            <li><a href="works.html">Работы</a></li>
+            <li><a href="contacts.html">Контакты</a></li>
+        </ul>
+    </div>
+</header>
+
+<main class="container">
+    <!-- Заголовок страницы -->
+    <div class="card">
+        <h1>📞 Свяжитесь со мной</h1>
+        <p>Буду рад новым знакомствам, сотрудничеству и интересным проектам. Вы можете связаться со мной любым удобным способом.</p>
+    </div>
+
+    <!-- Карточки контактов -->
+    <div class="card">
+        <h1>📱 Мои контакты</h1>
+        <div class="contacts-grid">
+            <div class="contact-card">
+                <span>📱</span>
+                <h3>Телефон / WhatsApp</h3>
+                <p>+7 (910) 709-10-08</p>
+                <p><small>Пн–Пт: 10:00 – 20:00</small></p>
+            </div>
+            <div class="contact-card">
+                <span>📧</span>
+                <h3>Email</h3>
+                <p>linina.elena2015@yandex.ru</p>
+                <p><small>Отвечаю в течение 24 часов</small></p>
+            </div>
+            <div class="contact-card">
+                <span>📍</span>
+                <h3>Адрес</h3>
+                <p>г. Москва, ул. Расковой, 4</p>
+                <p>КАИТ №20</p>
+            </div>
+        </div>
+    </div>
+        <!-- Карта и часы работы -->
+    <div class="card">
+        <h1>🗺️ Где меня найти</h1>
+        <div class="map-container">
+           <div style="position:relative;overflow:hidden;"><a href="https://yandex.ru/maps/org/kolledzh_avtomatizatsii_i_informatsionnykh_tekhnologiy_20_uchebnoye_otdeleniye_mossovet/178601188856/?utm_medium=mapframe&utm_source=maps" style="color:#eee;font-size:12px;position:absolute;top:0px;">Колледж автоматизации и информационных технологий № 20, учебное отделение Моссовет</a><a href="https://yandex.ru/maps/213/moscow/category/college/184106236/?utm_medium=mapframe&utm_source=maps" style="color:#eee;font-size:12px;position:absolute;top:14px;">Колледж в Москве</a><iframe src="https://yandex.ru/map-widget/v1/?ll=37.571613%2C55.785508&mode=search&oid=178601188856&ol=biz&sctx=ZAAAAAgBEAAaKAoSCQPQKF360UJAEbaizXFu3UtAEhIJ%2B1xtxf6y0D8RPDJWm%2F9XuT8iBgABAgMEBSgKOABAt54BSAFqAnJ1nQHNzMw9oAEAqAEAvQE1MkL5wgEljoHjkZ8G%2BLvXq5kFtZWP4gONmLyJBKuRy4EEuIjQ3gPM%2FJOJBIICZdCa0L7Qu9C70LXQtNC2INCw0LLRgtC%2B0LzQsNGC0LjQt9Cw0YbQuNC4INC4INC40L3RhNC%2B0YDQvNCw0YbQuNC%2B0L3QvdGL0YUg0YLQtdGF0L3QvtC70L7Qs9C40Lkg4oSWIDIwigIAkgIAmgIMZGVza3RvcC1tYXBzqgLNAjIwNzU0MDU2MzI2NSwxOTExMjMwNDY0NjMsMjMyNDQ2Njc4MjQ4LDYwMDIxNjcsMTIyMzcwNzUyODkyLDgwMjE4NzQ5MiwyMjMyNTIyNzY1NzQsMjMxMDQwNTY4MTk4LDI0MTMwMzU4MTAxMiwyMzk1NzA5MjMwOTksMjI2NTcyODEzNzI2LDIyNDQyOTk0MTQzNSwxMTc0NzM5MzMyMDMsMTAzMjM2NTQxMjU4LDE2ODM0Mjg5Nzc0NSwxMTA0NzAzNzMyMjcsODAzMDEyNzQ5MTcsNzc1NDAzOTM4MDcsMTk1MTExMjY4MDUwLDEwMTk0MTU0ODczNCw3MTkzNjgxNTcwMSw4MDIxOTc3OTEsODAyMTg2MjM4LDQxNjA4MTgwMTAwLDYwMDIyMzYsMjE0NTU2MTkxNzcsNzMyMTg1NjkxLDczMjE4NTY5N7ACAdoCKAoSCW%2B1TlyO10JAEfc%2FBiVb5UtAEhIJAOK1ZLiu0D8RAPiGPi9HuT%2FgAgE%3D&sll=37.571613%2C55.785508&sspn=0.000510%2C0.000193&text=%D0%9A%D0%BE%D0%BB%D0%BB%D0%B5%D0%B4%D0%B6%20%D0%B0%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D0%B7%D0%B0%D1%86%D0%B8%D0%B8%20%D0%B8%20%D0%B8%D0%BD%D1%84%D0%BE%D1%80%D0%BC%D0%B0%D1%86%D0%B8%D0%BE%D0%BD%D0%BD%D1%8B%D1%85%20%D1%82%D0%B5%D1%85%D0%BD%D0%BE%D0%BB%D0%BE%D0%B3%D0%B8%D0%B9%20%E2%84%96%2020&z=21" width="560" height="400" frameborder="1" allowfullscreen="true" style="position:relative;"></iframe></div>
+        </div>
+        <div class="working-hours">
+            <h3>⏰ Часы работы</h3>
+            <p><strong>Понедельник – Пятница:</strong> 10:00 – 20:00</p>
+            <p><strong>Суббота:</strong> 12:00 – 18:00</p>
+            <p><strong>Воскресенье:</strong> Выходной (отвечаю на сообщения)</p>
+        </div>
+    </div>
+</main>
+
+
+
+</body>
+</html>
